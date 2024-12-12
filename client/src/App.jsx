@@ -5,6 +5,7 @@ function App() {
   return (
     <>
       <p className="text-gray-700">34535</p>
+      <button>Login with Discord</button>
     </>
   )
 }
