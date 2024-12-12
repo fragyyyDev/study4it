@@ -32,7 +32,7 @@ const Dashboard = () => {
     return (
         <div className="flex flex-col items-center justify-center h-screen">
             <h1 className="text-2xl mb-4">Dashboard</h1>
-            <img src={user.avatar ? `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png` : `https://cdn.discordapp.com/embed/avatars/${user.discriminator % 5}.png`} alt="Avatar" className="w-24 h-24 rounded-full mb-4" />
+            <img src={user.avatar ? `https://cdn.discordapp.com/avatars/${user.discordId}/${user.avatar}.png` : `https://cdn.discordapp.com/embed/avatars/${user.discriminator % 5}.png`} alt="Avatar" className="w-24 h-24 rounded-full mb-4" />
             <p><strong>Username:</strong> {user.username}#{user.discriminator}</p>
             <p><strong>Email:</strong> {user.email}</p>
 
