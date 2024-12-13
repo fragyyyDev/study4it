@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import Sidebar from '../components/Sidebar';
 
 const Dashboard = () => {
     const [user, setUser] = useState(null);
@@ -30,6 +31,9 @@ const Dashboard = () => {
     };
 
     return (
+        <>
+            <Sidebar />
+            {/* 
         <div className="flex flex-col items-center justify-center h-screen">
             <h1 className="text-2xl mb-4">Dashboard</h1>
             <img src={user.avatar ? `https://cdn.discordapp.com/avatars/${user.discordId}/${user.avatar}.png` : `https://cdn.discordapp.com/embed/avatars/${user.discriminator % 5}.png`} alt="Avatar" className="w-24 h-24 rounded-full mb-4" />
@@ -43,6 +47,8 @@ const Dashboard = () => {
                 Logout
             </button>
         </div>
+        */}
+        </>
     );
 }
 
