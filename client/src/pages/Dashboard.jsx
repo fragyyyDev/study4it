@@ -1,55 +1,81 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { setUser, clearUser } from '../redux/userSlice';
 import Sidebar from '../components/Sidebar';
 
 const Dashboard = () => {
-    const [user, setUser] = useState(null);
+    const dispatch = useDispatch();
+    const user = useSelector((state) => state.user.user);
 
     useEffect(() => {
-        fetch("http://localhost:3000/api/user", {
-            credentials: "include",
+        fetch('http://localhost:3000/api/user', {
+            credentials: 'include',
         })
             .then((response) => {
                 if (response.status === 401) {
-                    window.location.href = "/";
+                    dispatch(setUser({
+                        username: 'Anonymous',
+                        discriminator: '0000',
+                        email: 'N/A',
+                        avatar: null,
+                        discordId: null,
+                    }));
+                } else {
+                    return response.json().then((data) => {
+                        dispatch(setUser(data.user));
+                    });
                 }
-                return response.json();
-            })
-            .then((data) => {
-                setUser(data.user);
             })
             .catch((error) => {
-                console.error("Error fetching user:", error);
+                console.error('Error fetching user:', error);
+                dispatch(setUser({
+                    username: 'Anonymous',
+                    discriminator: '0000',
+                    email: 'N/A',
+                    avatar: null,
+                    discordId: null,
+                }));
             });
-    }, []);
-
-    if (!user) {
-        return <p>Loading...</p>;
-    }
+    }, [dispatch]);
 
     const handleLogout = () => {
-        window.location.href = "http://localhost:3000/logout";
+        dispatch(clearUser());
+        window.location.href = 'http://localhost:3000/logout';
     };
 
+    const placeholderAvatar = 'https://via.placeholder.com/150?text=Anonymous';
+
     return (
-        <>
-            <Sidebar/>
-            {/* 
-        <div className="flex flex-col items-center justify-center h-screen">
-            <h1 className="text-2xl mb-4">Dashboard</h1>
-            <img src={user.avatar ? `https://cdn.discordapp.com/avatars/${user.discordId}/${user.avatar}.png` : `https://cdn.discordapp.com/embed/avatars/${user.discriminator % 5}.png`} alt="Avatar" className="w-24 h-24 rounded-full mb-4" />
-            <p><strong>Username:</strong> {user.username}#{user.discriminator}</p>
-            <p><strong>Email:</strong> {user.email}</p>
-
-            <button
-                onClick={handleLogout}
-                className="mt-4 bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
-            >
-                Logout
-            </button>
+        <div className='flex h-screen w-screen'>
+            <Sidebar />
+            <div className="flex flex-col items-center justify-center w-screen h-screen">
+                <h1 className="text-2xl mb-4">Dashboard</h1>
+                <img
+                    src={
+                        user?.avatar
+                            ? `https://cdn.discordapp.com/avatars/${user.discordId}/${user.avatar}.png`
+                            : placeholderAvatar
+                    }
+                    alt="Avatar"
+                    className="w-24 h-24 rounded-full mb-4"
+                />
+                <p>
+                    <strong>Username:</strong> {user?.username || 'Anonymous'}#{user?.discriminator || '0000'}
+                </p>
+                <p>
+                    <strong>Email:</strong> {user?.email || 'N/A'}
+                </p>
+                {user?.username !== 'Anonymous' && (
+                    <button
+                        onClick={handleLogout}
+                        className="mt-4 bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
+                    >
+                        Logout
+                    </button>
+                )}
+            </div>
         </div>
-        */}
-        </>
     );
-}
+};
 
-export default Dashboard
+export default Dashboard;
