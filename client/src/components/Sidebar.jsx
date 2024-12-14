@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Exam, ClockCounterClockwise, ChartDonut, BellSimple, Rss, CaretUpDown } from "@phosphor-icons/react"
+import { Exam, ClockCounterClockwise, ChartDonut, BellSimple, Rss, CaretUpDown, Log } from "@phosphor-icons/react"
 import { useNavigate, useLocation } from "react-router-dom"
 
 const Sidebar = () => {
@@ -19,7 +19,14 @@ const Sidebar = () => {
             setWhereIsLocated("notifikace")
         } else if (location.pathname.startsWith("/novinky")) {
             setWhereIsLocated("novinky")
-        } else {
+        }
+        else if (location.pathname.startsWith("/nastaveni")) {
+            setWhereIsLocated("nastaveni")
+        }
+        else if (location.pathname.startsWith("/navody")) {
+            setWhereIsLocated("navody")
+        }
+        else {
             setWhereIsLocated("dashboard")
         }
     }, [location.pathname])
@@ -80,20 +87,20 @@ const Sidebar = () => {
                     </div>
                     {settingsVisible && (
                         <div className="w-full h-8 absolute -top-28 right-0">
-                            <div className={`w-full h-8 ${whereIsLocated === "statistiky" ? "bg-[#F1EAFF]" : ""} flex items-center justify-start rounded-lg gap-x-2 hover:bg-[#F1EAFF]`}
-                                onClick={() => navigate("/statistiky")}
+                            <div className={`w-full h-8 ${whereIsLocated === "nastaveni" ? "bg-[#F1EAFF]" : ""} flex items-center justify-start rounded-lg gap-x-2 hover:bg-[#F1EAFF]`}
+                                onClick={() => navigate("/nastaveni")}
                             >
                                 <ChartDonut size={20} />
                                 <p className='inter text-sm'>Nastaveni</p>
                             </div>
-                            <div className={`w-full h-8 ${whereIsLocated === "statistiky" ? "bg-[#F1EAFF]" : ""} flex items-center justify-start rounded-lg gap-x-2 hover:bg-[#F1EAFF]`}
-                                onClick={() => navigate("/statistiky")}
+                            <div className={`w-full h-8 ${whereIsLocated === "navody" ? "bg-[#F1EAFF]" : ""} flex items-center justify-start rounded-lg gap-x-2 hover:bg-[#F1EAFF]`}
+                                onClick={() => navigate("/navody")}
                             >
                                 <ChartDonut size={20} />
                                 <p className='inter text-sm'>Pomoc a návody</p>
                             </div>
-                            <div className={`w-full h-8 ${whereIsLocated === "statistiky" ? "bg-[#F1EAFF]" : ""} flex items-center justify-start rounded-lg gap-x-2 hover:bg-[#F1EAFF]`}
-                                onClick={() => navigate("/statistiky")}
+                            <div className={`w-full h-8 flex items-center justify-start rounded-lg gap-x-2 hover:bg-[#F1EAFF]`}
+                                onClick={() => console.log("logout funkce")}
                             >
                                 <ChartDonut size={20} />
                                 <p className='inter text-sm'>Odhlásit se</p>
@@ -103,7 +110,7 @@ const Sidebar = () => {
                 </div>
             </div>
 
-        </div>
+        </div >
     )
 }
 
