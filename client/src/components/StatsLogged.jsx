@@ -1,6 +1,7 @@
 import { CaretDown, CaretUp } from '@phosphor-icons/react'
 import React, { useEffect } from 'react'
 import { useState } from 'react'
+import AreaChart from './AreaChart'
 
 const StatsLogged = () => {
     const [isDropDownActive, setIsDropDownActive] = useState(false)
@@ -45,8 +46,20 @@ const StatsLogged = () => {
                     </div>
                 )}
             </div>
+            <div className="">
             <h3 className='text-xl inter font-semibold'>Celkové statistiky</h3>
-            <p className='text-gray-500 inter'>Jak moc jsi aktivní a kolik jsi toho již zvládnul</p>
+            <p className='text-gray-500 inter mb-2'>Jak moc jsi aktivní a kolik jsi toho již zvládnul</p>
+            <div className="full h-80 flex flex-col lg:flex-row lg:gap-x-4 gap-y-4">
+                <div className="bg-[#F1EAFF] rounded-lg lg:w-1/3 w-full min-h-72 p-4">
+                    <p className='font-semibold inter'>Počet hotových testů</p>
+                    <p className='text-gray-500 text-sm inter'>Za posledních 6 měsíců</p>
+                    <AreaChart width={200} height={150}></AreaChart>
+                </div>
+                <div className="bg-[#F1EAFF] rounded-lg lg:w-1/3  w-full min-h-72 p-4"></div>
+                <div className="bg-[#F1EAFF] rounded-lg lg:w-1/3  w-full min-h-72 p-4"></div>
+            </div>
+            </div>
+            
         </div>
     )
 }
