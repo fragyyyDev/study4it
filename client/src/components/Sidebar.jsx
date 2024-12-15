@@ -4,6 +4,7 @@ import { Exam, ClockCounterClockwise, ChartDonut, BellSimple, Rss, CaretUpDown, 
 import { useNavigate, useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from 'react-redux';
 import { clearUser } from '../redux/userSlice';
+import LoginScreen from './LoginScreen';
 
 
 
@@ -14,6 +15,7 @@ const Sidebar = ({ onVisibilityChange }) => {
     const [whereIsLocated, setWhereIsLocated] = useState("dashboard");
     const [settingsVisible, setSettingsVisible] = useState(false);
     const [isVisible, setIsVisible] = useState(true);
+    const [isLoginScreenActive, setIsLoginScreenActive] = useState(false)
     const user = useSelector((state) => state.user.user);
     const placeholderAvatar = "https://via.placeholder.com/40";
 
@@ -50,10 +52,6 @@ const Sidebar = ({ onVisibilityChange }) => {
     const handleLogout = () => {
         dispatch(clearUser());
         window.location.href = 'http://localhost:3000/logout';
-    };
-
-    const handleLogin = () => {
-        window.location.href = "http://localhost:3000/auth/discord";
     };
 
     const truncateUsername = (username, maxLength = 10) => {
@@ -187,7 +185,7 @@ const Sidebar = ({ onVisibilityChange }) => {
                                 )}
                                 {!user && (
                                     <div className={`w-full h-8 flex items-center justify-start rounded-lg gap-x-2 hover:bg-[#F1EAFF]`}
-                                        onClick={() => handleLogin()}
+                                        onClick={() => setIsLoginScreenActive(!isLoginScreenActive)}
                                     >
                                         <Eyeglasses size={20} />
                                         <p className="text-sm inter">Přihlásit se</p>
@@ -198,6 +196,11 @@ const Sidebar = ({ onVisibilityChange }) => {
                     </div>
                 </div>
             </div>
+            {isLoginScreenActive && (
+                <div className="realtive">
+                    <LoginScreen onClose={() => setIsLoginScreenActive(false)} />
+                </div>
+            )}
         </>
     );
 };
