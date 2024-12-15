@@ -7,6 +7,7 @@ import HistoryTests from "./pages/HistoryTests";
 import Tests from "./pages/Tests";
 import FetchUserInfo from "./components/FetchUserInfo";
 import Settings from "./pages/Settings";
+import Stats from "./pages/Stats";
 
 const App = () => {
   return (
@@ -17,7 +18,7 @@ const App = () => {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/testy" element={<Tests />} />
           <Route path="/historie" element={<HistoryTests />} />
-          <Route path="/statistiky" element={<Dashboard />} />
+          <Route path="/statistiky" element={<Stats />} />
           <Route path="/notifikace" element={<Dashboard />} />
           <Route path="/novinky" element={<Dashboard />} />
           <Route path="/nastaveni" element={<Settings />} />
