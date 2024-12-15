@@ -6,6 +6,7 @@ import Dashboard from "./pages/Dashboard";
 import HistoryTests from "./pages/HistoryTests";
 import Tests from "./pages/Tests";
 import FetchUserInfo from "./components/FetchUserInfo";
+import Settings from "./pages/Settings";
 
 const App = () => {
   return (
@@ -19,7 +20,7 @@ const App = () => {
           <Route path="/statistiky" element={<Dashboard />} />
           <Route path="/notifikace" element={<Dashboard />} />
           <Route path="/novinky" element={<Dashboard />} />
-          <Route path="/nastaveni" element={<Dashboard />} />
+          <Route path="/nastaveni" element={<Settings />} />
           <Route path="/navody" element={<Dashboard />} />
           <Route path="/premium" element={<Dashboard />} />
           <Route path="*" element={<Navigate to="/" replace />} />

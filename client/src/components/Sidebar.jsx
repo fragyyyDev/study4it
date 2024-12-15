@@ -156,7 +156,7 @@ const Sidebar = ({ onVisibilityChange }) => {
                             <CaretUpDown size={16} />
                         </div>
                         {settingsVisible && (
-                            <div className={`w-full h-8 absolute ${user ? "-top-36" : "-top-40"}  right-0`}>
+                            <div className={`w-full h-8 absolute -top-36  right-0`}>
 
                                 <div className={`w-full h-8 ${whereIsLocated === "premium" ? "bg-[#F1EAFF]" : ""} flex items-center justify-start rounded-lg gap-x-2 hover:bg-[#F1EAFF]`}
                                     onClick={() => navigate("/premium")}
@@ -177,12 +177,14 @@ const Sidebar = ({ onVisibilityChange }) => {
                                     <Lifebuoy size={20} />
                                     <p className="inter text-sm">Pomoc a návody</p>
                                 </div>
-                                <div className={`w-full h-8 flex items-center justify-start rounded-lg gap-x-2 hover:bg-[#F1EAFF]`}
-                                    onClick={() => handleLogout()}
-                                >
-                                    <Power size={20} />
-                                    <p className="inter text-sm">Odhlásit se</p>
-                                </div>
+                                {user && (
+                                    <div className={`w-full h-8 flex items-center justify-start rounded-lg gap-x-2 hover:bg-[#F1EAFF]`}
+                                        onClick={() => handleLogout()}
+                                    >
+                                        <Power size={20} />
+                                        <p className="inter text-sm">Odhlásit se</p>
+                                    </div>
+                                )}
                                 {!user && (
                                     <div className={`w-full h-8 flex items-center justify-start rounded-lg gap-x-2 hover:bg-[#F1EAFF]`}
                                         onClick={() => handleLogin()}
