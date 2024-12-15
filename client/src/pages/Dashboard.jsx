@@ -1,3 +1,5 @@
+// src/pages/Dashboard.jsx
+
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setUser, clearUser } from '../redux/userSlice';
@@ -13,13 +15,7 @@ const Dashboard = () => {
         })
             .then((response) => {
                 if (response.status === 401) {
-                    dispatch(setUser({
-                        username: 'Anonymous',
-                        discriminator: '0000',
-                        email: 'N/A',
-                        avatar: null,
-                        discordId: null,
-                    }));
+                    dispatch(clearUser()); // Clear user state if not authenticated
                 } else {
                     return response.json().then((data) => {
                         dispatch(setUser(data.user));
@@ -28,13 +24,7 @@ const Dashboard = () => {
             })
             .catch((error) => {
                 console.error('Error fetching user:', error);
-                dispatch(setUser({
-                    username: 'Anonymous',
-                    discriminator: '0000',
-                    email: 'N/A',
-                    avatar: null,
-                    discordId: null,
-                }));
+                dispatch(clearUser()); // Clear user state on error
             });
     }, [dispatch]);
 
@@ -65,7 +55,7 @@ const Dashboard = () => {
                 <p>
                     <strong>Email:</strong> {user?.email || 'N/A'}
                 </p>
-                {user?.username !== 'Anonymous' && (
+                {user && (
                     <button
                         onClick={handleLogout}
                         className="mt-4 bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"

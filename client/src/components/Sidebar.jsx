@@ -2,11 +2,14 @@
 import React, { useEffect, useState } from 'react';
 import { Exam, ClockCounterClockwise, ChartDonut, BellSimple, Rss, CaretUpDown, List } from "@phosphor-icons/react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { clearUser } from '../redux/userSlice';
+
 
 
 const Sidebar = ({ onVisibilityChange }) => {
     const location = useLocation();
+    const dispatch = useDispatch();
     const navigate = useNavigate();
     const [whereIsLocated, setWhereIsLocated] = useState("dashboard");
     const [settingsVisible, setSettingsVisible] = useState(false);
@@ -40,6 +43,15 @@ const Sidebar = ({ onVisibilityChange }) => {
         }
     }, [location.pathname]);
 
+    const handleLogout = () => {
+            dispatch(clearUser());
+            window.location.href = 'http://localhost:3000/logout';
+    };
+
+    const handleLogin = () => {
+        window.location.href = "http://localhost:3000/auth/discord";
+    };
+    
     return (
         <>
             {!isVisible && (
@@ -120,7 +132,7 @@ const Sidebar = ({ onVisibilityChange }) => {
                             <CaretUpDown size={16} />
                         </div>
                         {settingsVisible && (
-                            <div className="w-full h-8 absolute -top-28 right-0">
+                            <div className={`w-full h-8 absolute ${user ? "-top-28" : "-top-36"}  right-0`}>
                                 <div className={`w-full h-8 ${whereIsLocated === "nastaveni" ? "bg-[#F1EAFF]" : ""} flex items-center justify-start rounded-lg gap-x-2 hover:bg-[#F1EAFF]`}
                                     onClick={() => navigate("/nastaveni")}
                                 >
@@ -134,11 +146,19 @@ const Sidebar = ({ onVisibilityChange }) => {
                                     <p className="inter text-sm">Pomoc a návody</p>
                                 </div>
                                 <div className={`w-full h-8 flex items-center justify-start rounded-lg gap-x-2 hover:bg-[#F1EAFF]`}
-                                    onClick={() => console.log("logout funkce")}
+                                    onClick={() => handleLogout()}
                                 >
                                     <ChartDonut size={20} />
                                     <p className="inter text-sm">Odhlásit se</p>
                                 </div>
+                                {!user && (
+                                    <div className={`w-full h-8 flex items-center justify-start rounded-lg gap-x-2 hover:bg-[#F1EAFF]`}
+                                    onClick={() => handleLogin()}
+                                >
+                                    <ChartDonut size={20} />
+                                    <p className="inter text-sm">Přihlásit se</p>
+                                </div>
+                                )}
                             </div>
                         )}
                     </div>
