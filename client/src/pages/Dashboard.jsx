@@ -9,25 +9,6 @@ const Dashboard = () => {
     const dispatch = useDispatch();
     const user = useSelector((state) => state.user.user);
 
-    useEffect(() => {
-        fetch('http://localhost:3000/api/user', {
-            credentials: 'include',
-        })
-            .then((response) => {
-                if (response.status === 401) {
-                    dispatch(clearUser()); // Clear user state if not authenticated
-                } else {
-                    return response.json().then((data) => {
-                        dispatch(setUser(data.user));
-                    });
-                }
-            })
-            .catch((error) => {
-                console.error('Error fetching user:', error);
-                dispatch(clearUser()); // Clear user state on error
-            });
-    }, [dispatch]);
-
     const handleLogout = () => {
         dispatch(clearUser());
         window.location.href = 'http://localhost:3000/logout';

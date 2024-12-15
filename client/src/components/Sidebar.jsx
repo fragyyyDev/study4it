@@ -1,6 +1,6 @@
 // Sidebar.jsx
 import React, { useEffect, useState } from 'react';
-import { Exam, ClockCounterClockwise, ChartDonut, BellSimple, Rss, CaretUpDown, List } from "@phosphor-icons/react";
+import { Exam, ClockCounterClockwise, ChartDonut, BellSimple, Rss, CaretUpDown, List, CrownSimple, UserCircleGear, Lifebuoy, Power, Eyeglasses } from "@phosphor-icons/react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from 'react-redux';
 import { clearUser } from '../redux/userSlice';
@@ -38,20 +38,31 @@ const Sidebar = ({ onVisibilityChange }) => {
             setWhereIsLocated("nastaveni");
         } else if (location.pathname.startsWith("/navody")) {
             setWhereIsLocated("navody");
-        } else {
+        }
+        else if (location.pathname.startsWith("/premium")) {
+            setWhereIsLocated("premium");
+        }
+        else {
             setWhereIsLocated("dashboard");
         }
     }, [location.pathname]);
 
     const handleLogout = () => {
-            dispatch(clearUser());
-            window.location.href = 'http://localhost:3000/logout';
+        dispatch(clearUser());
+        window.location.href = 'http://localhost:3000/logout';
     };
 
     const handleLogin = () => {
         window.location.href = "http://localhost:3000/auth/discord";
     };
-    
+
+    const truncateUsername = (username, maxLength = 10) => {
+        if (!username) return "";
+        return username.length > maxLength
+            ? `${username.slice(0, maxLength - 2)}..`
+            : username;
+    };
+
     return (
         <>
             {!isVisible && (
@@ -112,19 +123,32 @@ const Sidebar = ({ onVisibilityChange }) => {
                 </div>
                 <div className="absolute bottom-6 w-full h-16 flex gap-x2">
                     <div className="relative flex w-[80%]">
-                        <div className="w-10 h-10 rounded-full mr-4">
-                            <img
-                                src={
-                                    user?.avatar
-                                        ? `https://cdn.discordapp.com/avatars/${user.discordId}/${user.avatar}.png`
-                                        : placeholderAvatar
-                                }
-                                alt="Avatar"
-                                className="w-10 h-10 rounded-full"
-                            />                        </div>
+                        {user &&
+                            (
+                                <div className="w-10 h-10 rounded-full mr-4">
+                                    <img
+                                        src={
+                                            `https://cdn.discordapp.com/avatars/${user.discordId}/${user.avatar}.png`
+                                        }
+                                        alt="Avatar"
+                                        className="w-10 h-10 rounded-full"
+                                    />
+                                </div>
+                            )
+                        }
+
                         <div>
-                            <p className="inter font-semibold text-md">Váš profil</p>
-                            <p className="text-sm text-gray-500 inter">user@561</p>
+                            <p className="inter font-semibold text-md">
+                                {user?.username
+                                    ? truncateUsername(user.username)
+                                    : "Nepřihlášený"}
+                            </p>
+
+                            <p className="text-sm text-gray-500 inter">
+                                {user
+                                    ? `${truncateUsername(user.username)}#${user.discriminator}`
+                                    : "Přihlas se do systému"}
+                            </p>
                         </div>
                         <div className="absolute right-0 top-0"
                             onClick={() => setSettingsVisible(!settingsVisible)}
@@ -132,32 +156,40 @@ const Sidebar = ({ onVisibilityChange }) => {
                             <CaretUpDown size={16} />
                         </div>
                         {settingsVisible && (
-                            <div className={`w-full h-8 absolute ${user ? "-top-28" : "-top-36"}  right-0`}>
+                            <div className={`w-full h-8 absolute ${user ? "-top-36" : "-top-40"}  right-0`}>
+
+                                <div className={`w-full h-8 ${whereIsLocated === "premium" ? "bg-[#F1EAFF]" : ""} flex items-center justify-start rounded-lg gap-x-2 hover:bg-[#F1EAFF]`}
+                                    onClick={() => navigate("/premium")}
+                                >
+                                    <CrownSimple size={20} />
+                                    <p className="inter text-sm">Premium</p>
+                                </div>
                                 <div className={`w-full h-8 ${whereIsLocated === "nastaveni" ? "bg-[#F1EAFF]" : ""} flex items-center justify-start rounded-lg gap-x-2 hover:bg-[#F1EAFF]`}
                                     onClick={() => navigate("/nastaveni")}
                                 >
-                                    <ChartDonut size={20} />
+                                    <UserCircleGear size={20} />
                                     <p className="inter text-sm">Nastaveni</p>
                                 </div>
+
                                 <div className={`w-full h-8 ${whereIsLocated === "navody" ? "bg-[#F1EAFF]" : ""} flex items-center justify-start rounded-lg gap-x-2 hover:bg-[#F1EAFF]`}
                                     onClick={() => navigate("/navody")}
                                 >
-                                    <ChartDonut size={20} />
+                                    <Lifebuoy size={20} />
                                     <p className="inter text-sm">Pomoc a návody</p>
                                 </div>
                                 <div className={`w-full h-8 flex items-center justify-start rounded-lg gap-x-2 hover:bg-[#F1EAFF]`}
                                     onClick={() => handleLogout()}
                                 >
-                                    <ChartDonut size={20} />
+                                    <Power size={20} />
                                     <p className="inter text-sm">Odhlásit se</p>
                                 </div>
                                 {!user && (
                                     <div className={`w-full h-8 flex items-center justify-start rounded-lg gap-x-2 hover:bg-[#F1EAFF]`}
-                                    onClick={() => handleLogin()}
-                                >
-                                    <ChartDonut size={20} />
-                                    <p className="inter text-sm">Přihlásit se</p>
-                                </div>
+                                        onClick={() => handleLogin()}
+                                    >
+                                        <Eyeglasses size={20} />
+                                        <p className="inter text-sm">Přihlásit se</p>
+                                    </div>
                                 )}
                             </div>
                         )}

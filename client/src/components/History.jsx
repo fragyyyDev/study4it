@@ -1,6 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-
+import HistoryLogged from './HistoryLogged';
+import HistoryNotLogged from './HistoryNotLogged';
 const History = () => {
   // Correctly access the 'user' data from the Redux store
   const user = useSelector((state) => state.user.user);
@@ -10,13 +11,15 @@ const History = () => {
   const isLoggedIn = !!user; // Converts user to a boolean
 
   return (
-    <div className="flex justify-center items-center h-screen">
-      {/* Conditionally render the square based on user authentication */}
-      <div
-        className={`w-24 h-24 ${
-          isLoggedIn ? 'bg-blue-500' : 'bg-red-500'
-        } rounded`}
-      ></div>
+    <div className="">
+        {isLoggedIn && (
+            <div className="">
+                <HistoryLogged/>
+            </div>
+        )}
+        {!isLoggedIn && (
+            <HistoryNotLogged/>
+        )}
     </div>
   );
 };

@@ -21,6 +21,7 @@ const App = () => {
           <Route path="/novinky" element={<Dashboard />} />
           <Route path="/nastaveni" element={<Dashboard />} />
           <Route path="/navody" element={<Dashboard />} />
+          <Route path="/premium" element={<Dashboard />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </FetchUserInfo>
