@@ -29,7 +29,7 @@ const FetchUserInfo = ({ children }) => {
   }, [dispatch]);
 
   return (
-    <div className='flex h-screen w-screen'>
+    <div className='flex w-screen h-screen'>
       <div className="flex-1">
         {children}
       </div>

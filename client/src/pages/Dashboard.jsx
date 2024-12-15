@@ -17,10 +17,10 @@ const Dashboard = () => {
     const placeholderAvatar = 'https://via.placeholder.com/150?text=Anonymous';
 
     return (
-        <div className='flex h-screen w-screen'>
+        <aside className='flex w-screen h-screen'>
             <Sidebar />
             <div className="flex flex-col items-center justify-center w-screen h-screen">
-                <h1 className="text-2xl mb-4">Dashboard</h1>
+                <h1 className="mb-4 text-2xl">Dashboard</h1>
                 <img
                     src={
                         user?.avatar
@@ -28,7 +28,7 @@ const Dashboard = () => {
                             : placeholderAvatar
                     }
                     alt="Avatar"
-                    className="w-24 h-24 rounded-full mb-4"
+                    className="w-24 h-24 mb-4 rounded-full"
                 />
                 <p>
                     <strong>Username:</strong> {user?.username || 'Anonymous'}#{user?.discriminator || '0000'}
@@ -39,13 +39,13 @@ const Dashboard = () => {
                 {user && (
                     <button
                         onClick={handleLogout}
-                        className="mt-4 bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
+                        className="px-4 py-2 mt-4 text-white bg-red-500 rounded hover:bg-red-600"
                     >
                         Logout
                     </button>
                 )}
             </div>
-        </div>
+        </aside>
     );
 };
 
