@@ -1,11 +1,15 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-    darkMode: ["class"],
-    content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
+  darkMode: ["class"],
+  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
-  	extend: {
-
-  	}
+    extend: {
+      colors: {
+        dark: '#141417',
+        primary: '#7263FF',
+        primarydark: '#4D3FCD',
+        text: '#686872',
+      }
+    }
   },
-  plugins: [require("tailwindcss-animate")],
 };
