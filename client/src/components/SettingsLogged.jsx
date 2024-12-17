@@ -5,22 +5,22 @@ const SettingsLogged = () => {
         <div>
             <h2 className='text-3xl text-dark font-bold tracking-tight inter'>Nastavení</h2>
             <div className="w-full h-[1px] bg-[#F1EAFF] my-6"></div>
-            <div className="flex flex-col justify-between md:flex-row">
-                <div className="mb-4 md:mb-0">
+            <div className="flex flex-col justify-between lg:flex-row">
+                <div className="mb-4 md:mb-0 w-full lg:w-1/2">
                     <h5 className='font-semibold inter tracking-[-0.02em]'>Téma aplikace</h5>
                     <p className='text-text text-sm inter font-medium tracking-[-0.01em]'>Vyber si barevné schéma při používání aplikace</p>
                 </div>
-                <div className="flex flex-col md:flex-row gap-y-4 md:gap-x-3">
-                    <div className="flex flex-col items-center">
-                        <div className="w-full lg:w-[15vw] h-48 md:h-60 lg:h-40 bg-[#F1EAFF] rounded-lg"></div>
+                <div className="flex flex-col md:flex-row gap-y-4 md:gap-x-3 w-full lg:w-1/2">
+                    <div className="flex flex-col flex-1 items-center">
+                        <div className="w-full h-48 md:h-60 lg:h-40 bg-[#F1EAFF] rounded-lg"></div>
                         <p className='mt-2 text-sm font-semibold text-center text-gray-500 inter'>Systémové preference</p>
                     </div>
-                    <div className="flex flex-col items-center">
-                        <div className="w-full lg:w-[15vw] h-48 md:h-60 lg:h-40 bg-[#F1EAFF] rounded-lg"></div>
+                    <div className="flex flex-col flex-1 items-center">
+                        <div className="w-full h-48 md:h-60 lg:h-40 bg-[#F1EAFF] rounded-lg"></div>
                         <p className='mt-2 text-sm font-semibold text-center text-gray-500 inter'>Světlý režim</p>
                     </div>
-                    <div className="flex flex-col items-center">
-                        <div className="w-full lg:w-[15vw] h-48 md:h-60 lg:h-40 bg-[#F1EAFF] rounded-lg"></div>
+                    <div className="flex flex-col flex-1 items-center">
+                        <div className="w-full h-48 md:h-60 lg:h-40 bg-[#F1EAFF] rounded-lg"></div>
                         <p className='mt-2 text-sm font-semibold text-center text-gray-500 inter'>Tmavý režim</p>
                     </div>
                 </div>
