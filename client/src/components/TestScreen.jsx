@@ -4,7 +4,7 @@ import React from 'react'
 const TestScreen = () => {
     return (
         <div>
-            <h2 className="inter text-2xl text-dark font-bold tracking-tight">Testy</h2>
+            <h2 className="inter text-3xl text-dark font-bold tracking-tight">Testy</h2>
             <div className="w-full h-[1px] bg-[#F1EAFF] my-6"></div>
             <div>
                 <h2 className="inter text-xl font-bold tracking-tight text-dark">Přijímací zkoušky</h2>
