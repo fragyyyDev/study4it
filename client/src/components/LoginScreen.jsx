@@ -10,7 +10,7 @@ const LoginScreen = ({ onClose }) => {
     return (
         <div
             className="fixed inset-0 backdrop-blur-sm bg-black bg-opacity-25 z-50 flex items-center justify-center"
-            onClick={onClose}
+            onClick={() => onClose()}
         >
             <div
                 className="bg-white p-4 rounded-lg w-2/3 lg:w-1/3 xl:w-1/4"
@@ -31,7 +31,7 @@ const LoginScreen = ({ onClose }) => {
                         <div className="w-[40%] h-[1px] bg-[#0E0E1059]"></div>
                     </div>
                     <button className='w-full h-12 rounded-xl inter flex items-center justify-center gap-x-3'
-                        onClick={onClose}
+                        onClick={() => onClose()}
                     >
                         <Eyeglasses size={22} />
                         Pokračovat jako host
