@@ -79,18 +79,13 @@ const Sidebar = ({ onVisibilityChange }) => {
                         <div className={`w-full h-8 ${whereIsLocated === "testy" ? "bg-[#F1EAFF]" : ""} flex items-center justify-start rounded-lg gap-x-2 p-2 tracking-[-0.01em] hover:bg-[#F1EAFF] active:scale-[0.98] transition-all`} onClick={() => navigate("/testy")}><Exam size={20} /> <p className="text-sm inter">Testy</p></div>
                         <div className={`w-full h-8 ${whereIsLocated === "historie" ? "bg-[#F1EAFF]" : ""} flex items-center justify-start rounded-lg gap-x-2 p-2 tracking-[-0.01em] hover:bg-[#F1EAFF] active:scale-[0.98] transition-all`} onClick={() => navigate("/historie")}> <ClockCounterClockwise size={20} /> <p className="text-sm inter">Historie testů</p></div>
                         <div className={`w-full h-8 ${whereIsLocated === "statistiky" ? "bg-[#F1EAFF]" : ""} flex items-center justify-start rounded-lg gap-x-2 p-2 tracking-[-0.01em] hover:bg-[#F1EAFF] active:scale-[0.98] transition-all`} onClick={() => navigate("/statistiky")}><ChartDonut size={20} /> <p className="text-sm inter">Statistiky</p></div>
+                        <div className={`w-full h-8 ${whereIsLocated === "zebricek" ? "bg-[#F1EAFF]" : ""} flex items-center justify-start rounded-lg gap-x-2 p-2 tracking-[-0.01em] hover:bg-[#F1EAFF] active:scale-[0.98] transition-all`} onClick={() => navigate("/zebricek")}><Ranking size={20} /> <p className="text-sm inter">Žebříček</p></div>
                     </div>
                     {/* Nástroje */}
                     <div className="flex flex-col my-2 mt-4">
                         <p className="text-sm text-[#686872] inter tracking-[-0.01em]">Nástroje</p>
                         <div className={`w-full h-8 ${whereIsLocated === "notifikace" ? "bg-[#F1EAFF]" : ""} flex items-center justify-start rounded-lg gap-x-2 p-2 tracking-[-0.01em] hover:bg-[#F1EAFF] active:scale-[0.98] transition-all`} onClick={() => navigate("/notifikace")}><BellSimple size={20} /> <p className="text-sm inter">Notifikace</p></div>
                         <div className={`w-full h-8 ${whereIsLocated === "novinky" ? "bg-[#F1EAFF]" : ""} flex items-center justify-start rounded-lg gap-x-2 p-2 tracking-[-0.01em] hover:bg-[#F1EAFF] active:scale-[0.98] transition-all`} onClick={() => navigate("/novinky")}><Rss size={20} /> <p className="text-sm inter tracking-[-0.01em]">Novinky</p></div>
-                    </div>
-                    <div className={`w-full h-8 ${whereIsLocated === "zebricek" ? "bg-[#F1EAFF]" : ""} flex items-center justify-start rounded-lg gap-x-2 p-2 tracking-[-0.01em] hover:bg-[#F1EAFF] active:scale-[0.98] transition-all`}
-                        onClick={() => navigate("/zebricek")}
-                    >
-                        <Ranking size={20} />
-                        <p className="text-sm inter">Žebříček</p>
                     </div>
                 </div>
                 <div className="flex w-full h-16 select-none gap-x2" onClick={() => setSettingsVisible(!settingsVisible)}>
