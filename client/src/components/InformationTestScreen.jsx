@@ -1,8 +1,40 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
+import { useNavigate } from 'react-router-dom';
 
 const InformationTestScreen = () => {
+    const navigate = useNavigate();
+    const [existingSession, setExistingSession] = useState(false);
+    const QUIZ_DURATION_NANECISTO = 10 * 60 * 13000; // 130 minut 
+    const STORAGE_KEY_NANECISTO = 'NANECISTO';
+
+    const startQuiz = () => {
+        const expirationTime = Date.now() + QUIZ_DURATION_NANECISTO;
+        const sessionData = {
+            expirationTime,
+            startedAt: Date.now(),
+        };
+        localStorage.setItem(STORAGE_KEY_NANECISTO, JSON.stringify(sessionData));
+        navigate('/psani-testu-nanecisto');
+    };
+
+    useEffect(() => {
+        const storedSession = JSON.parse(localStorage.getItem(STORAGE_KEY_NANECISTO));
+
+        if (storedSession && storedSession.expirationTime) {
+            setExistingSession(true);
+        } else {
+            setExistingSession(false);
+        }
+    }, []);
+
     return (
         <div>
+            {existingSession && (
+                <div className="w-full h-24 flex bg-[#F1EAFF] items-center justify-between p-6">
+                    <p className='text-xl inter'>Vypadá to, že již máš rozdělaný test pojď ho dokončit !</p>
+                    <button className='inter bg-[#7263FF] p-2 rounded-xl text-white' onClick={() => {navigate("/psani-testu-nanecisto")}}>Psát test</button>
+                </div>
+            )}
             <h2 className='text-3xl inter font-semibold'>Simulace nanečisto</h2>
             <h3 className='text-xl inter'>Přijímací zkoušky</h3>
             <div className="w-full h-[1px] bg-[#F1EAFF] my-6"></div>
@@ -48,6 +80,7 @@ const InformationTestScreen = () => {
                         </div>
                     </div>
                 </div>
+                <button onClick={() => startQuiz()}>Spustit test Nanečisto</button>
             </div>
         </div>
     )
