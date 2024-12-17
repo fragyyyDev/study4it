@@ -1,7 +1,9 @@
 import { ArrowCircleRight, CrownSimple, Eye } from '@phosphor-icons/react'
 import React from 'react'
-
+import { Navigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 const TestScreen = () => {
+    const navigate = useNavigate()
     return (
         <div>
             <h2 className="inter text-3xl text-dark font-bold tracking-tight">Testy</h2>
@@ -23,7 +25,9 @@ const TestScreen = () => {
                             <li>15 minut dobrovolnou pauzu mezi předměty</li>
                             <li>Úlohy různého typu, délky a obtížnosti</li>
                         </ul>
-                        <button className='p-2 bg-[#7263FF] rounded-md text-white flex inter text-sm items-center justify-center mt-4 w-full gap-x-2 leading-6 tracking-[-0.02em] hover:bg-primarydark active:scale-[0.98] transition-all'>Začni procvičovat  <ArrowCircleRight size={18} /></button>
+                        <button className='p-2 bg-[#7263FF] rounded-md text-white flex inter text-sm items-center justify-center mt-4 w-full gap-x-2 leading-6 tracking-[-0.02em] hover:bg-primarydark active:scale-[0.98] transition-all'
+                            onClick={() => navigate('/informace')}
+                        >Začni procvičovat  <ArrowCircleRight size={18} /></button>
                     </div>
                     <div className="p-4 flex-1 h-100 min-w-[300px] bg-[#F1EAFF] rounded-lg">
                         <h3 className='inter font-bold text-xl mb-2 text-dark tracking-tight'>Mírný režim</h3>
