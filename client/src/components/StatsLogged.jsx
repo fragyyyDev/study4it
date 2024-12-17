@@ -4,6 +4,7 @@ import { useState } from 'react'
 import AreaChart from './AreaChart'
 import AreaChartDouble from './AreaChartDouble'
 import PieChartStats from './PieChart'
+import BarChartStats from "./BarCharts"
 
 const StatsLogged = () => {
     const [isDropDownActive, setIsDropDownActive] = useState(false)
@@ -84,12 +85,43 @@ const StatsLogged = () => {
                         <div className="bg-[#F1EAFF] rounded-lg lg:w-1/3 w-full min-h-72 p-4">
                             <p className='font-semibold inter'>Častěji procvičovaný typ</p>
                             <p className='text-gray-500 text-sm inter'>Za posledních {comboboxTextValue}</p>
-                            <PieChartStats/>
+                            <PieChartStats />
                         </div>
                         <div className="bg-[#F1EAFF] rounded-lg lg:w-1/3 w-full min-h-72 p-4">
                             <p className='font-semibold inter'>Počet hodin strávených v testu</p>
                             <p className='text-gray-500 text-sm inter'>Za posledních {comboboxTextValue}</p>
                             <AreaChartDouble />
+                        </div>
+                    </div>
+                </div>
+                <div className="w-full h-[1px] bg-[#F1EAFF] my-6"></div>
+                <div className="">
+                    <h3 className='text-xl inter font-semibold'>Předměty</h3>
+                    <p className='text-gray-500 inter mb-2'>Kde ti to dělá problémy a co</p>
+                    <p className='inter font-semibold'>Matematika</p>
+                    <div className="full flex flex-col lg:flex-row lg:gap-x-4 gap-y-4 h-auto lg:h-80">
+                        <div className="bg-[#F1EAFF] rounded-lg lg:w-1/3 w-full min-h-72 p-4">
+                            <p className='font-semibold inter'>Často procvičovaný předmět</p>
+                            <p className='text-gray-500 text-sm inter'>Za posledních {comboboxTextValue}</p>
+                            <PieChartStats />
+                        </div>
+                        <div className="bg-[#F1EAFF] rounded-lg lg:w-2/3 w-full min-h-72 p-4">
+                            <p className='font-semibold inter'>Počet hodin strávených v testu</p>
+                            <p className='text-gray-500 text-sm inter'>Za posledních {comboboxTextValue}</p>
+                            <BarChartStats />
+                        </div>
+                    </div>
+                    <p className='inter font-semibold mt-2'>Čeština</p>
+                    <div className="full flex flex-col lg:flex-row lg:gap-x-4 gap-y-4 h-auto lg:h-80">
+                        <div className="bg-[#F1EAFF] rounded-lg lg:w-2/3 w-full min-h-72 p-4">
+                            <p className='font-semibold inter'>Počet hodin strávených v testu</p>
+                            <p className='text-gray-500 text-sm inter'>Za posledních {comboboxTextValue}</p>
+                            <BarChartStats />
+                        </div>
+                        <div className="bg-[#F1EAFF] rounded-lg lg:w-1/3 w-full min-h-72 p-4">
+                            <p className='font-semibold inter'>Často procvičovaný předmět</p>
+                            <p className='text-gray-500 text-sm inter'>Za posledních {comboboxTextValue}</p>
+                            <PieChartStats />
                         </div>
                     </div>
                 </div>

@@ -1,6 +1,6 @@
 // Sidebar.jsx
 import React, { useEffect, useState } from 'react';
-import { Exam, ClockCounterClockwise, ChartDonut, BellSimple, Rss, CaretUpDown, List, CrownSimple, UserCircleGear, Lifebuoy, Power, Eyeglasses } from "@phosphor-icons/react";
+import { Exam, ClockCounterClockwise, ChartDonut, BellSimple, Rss, CaretUpDown, List, CrownSimple, UserCircleGear, Lifebuoy, Power, Eyeglasses, Ranking } from "@phosphor-icons/react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from 'react-redux';
 import { clearUser } from '../redux/userSlice';
@@ -43,6 +43,8 @@ const Sidebar = ({ onVisibilityChange }) => {
         }
         else if (location.pathname.startsWith("/premium")) {
             setWhereIsLocated("premium");
+        } else if (location.pathname.startsWith("/zebricek")) {
+            setWhereIsLocated("zebricek");
         }
         else {
             setWhereIsLocated("dashboard");
@@ -102,6 +104,12 @@ const Sidebar = ({ onVisibilityChange }) => {
                     >
                         <ChartDonut size={20} />
                         <p className="text-sm inter">Statistiky</p>
+                    </div>
+                    <div className={`w-full h-8 ${whereIsLocated === "zebricek" ? "bg-[#F1EAFF]" : ""} flex items-center justify-start rounded-lg gap-x-2 p-2 tracking-[-0.01em] hover:bg-[#F1EAFF] active:scale-[0.98] transition-all`}
+                        onClick={() => navigate("/zebricek")}
+                    >
+                        <Ranking size={20} />
+                        <p className="text-sm inter">Žebříček</p>
                     </div>
                 </div>
                 <div className="my-2 mt-4">
