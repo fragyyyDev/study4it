@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { ArrowCircleRight, Warning, XCircle } from '@phosphor-icons/react'
+import { InlineMath, BlockMath } from 'react-katex';
+import 'katex/dist/katex.min.css'; // Import KaTeX CSS
 
 const InformationTestScreen = () => {
     const navigate = useNavigate();
