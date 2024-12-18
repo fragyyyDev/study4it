@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { ArrowCircleRight, Warning, XCircle } from '@phosphor-icons/react'
 import { InlineMath, BlockMath } from 'react-katex';
-import 'katex/dist/katex.min.css'; // Import KaTeX CSS
+import 'katex/dist/katex.min.css';
 
 const InformationTestScreen = () => {
     const navigate = useNavigate();
@@ -36,14 +36,14 @@ const InformationTestScreen = () => {
             <h3 className='text-xl inter'>Přijímací zkoušky</h3>
             <div className="w-full h-[1px] bg-[#F1EAFF] my-6"></div>
             {existingSession && (
-                <div className="w-full h-20 flex bg-[#F1EAFF] items-center px-4 mb-3 rounded-xl gap-x-4">
-                    <Warning size={32} className='mx-4'/>
-                    <div className="flex justify-between w-full">
-                        <div className="">
+                <div className="w-full flex flex-col md:flex-row bg-[#F1EAFF] items-center px-4 mb-3 rounded-xl gap-x-4">
+                    <Warning size={32} className='mx-4 my-2 md:my-0'/>
+                    <div className="flex flex-col md:flex-row justify-between w-full">
+                        <div className="flex flex-col justify-center">
                             <p className='inter font-semibold'>Běží ti test! Pojď ho dokončit!</p>
                             <p className='inter text-gray-500 text-sm'>Vypadá to , že jsi opustil svůj test. Neboj, jeho stav máš uložený a furt se k němu můžeš vrátit.</p>
                         </div>
-                        <button className='inter bg-[#7263FF] p-2 rounded-xl text-white flex gap-x-2 items-center' onClick={() => { navigate("/psani-testu-nanecisto") }}>Pokračovat <ArrowCircleRight size={24} /></button>
+                        <button className='inter bg-[#7263FF] p-2  my-4 rounded-xl text-white flex gap-x-2 items-center' onClick={() => { navigate("/psani-testu-nanecisto") }}>Pokračovat <ArrowCircleRight size={24} /></button>
                     </div>
                 </div>
             )}

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import { ClockCountdown } from '@phosphor-icons/react';
 
 const TestTimer = ({ expirationTime, onExpire }) => {
   const calculateTimeLeft = () => {
@@ -31,10 +32,20 @@ const TestTimer = ({ expirationTime, onExpire }) => {
     const totalSeconds = Math.floor(milliseconds / 1000);
     const minutes = Math.floor(totalSeconds / 60);
     const seconds = totalSeconds % 60;
-    return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+
+    // Format minutes and seconds with appropriate labels
+    return `${minutes}min${seconds < 10 ? '0' : ''}, ${seconds}sek`;
   };
 
-  return <div><p className='inter text-gray-500'>Času zbývá: {formatTime(timeLeft)}</p></div>;
+
+  return (
+    <div>
+      <p className='inter text-gray-500 flex items-center gap-x-2'>
+        <ClockCountdown /> {formatTime(timeLeft)}
+      </p>
+    </div>
+  );
+
 };
 
 TestTimer.propTypes = {
