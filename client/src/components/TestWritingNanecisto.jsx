@@ -14,23 +14,24 @@ function TestWritingNanecisto() {
   const navigate = useNavigate();
   const [session, setSession] = useState(null);
   const [isCheckingSession, setIsCheckingSession] = useState(true);
-  const [selectedQuestionIds, setSelectedQuestionIds] = useState([]); 
+  const [selectedQuestionIds, setSelectedQuestionIds] = useState([]);
   const [selectedAnswers, setSelectedAnswers] = useState({});
   const [resultsActive, setResultsActive] = useState(false);
   const [correctAnswers, setCorrectAnswers] = useState([]);
-  const [wrongAnswers, setWrongAnswers] = useState([]); 
+  const [wrongAnswers, setWrongAnswers] = useState([]);
+  const [showHints, setShowHints] = useState(false)
 
   useEffect(() => {
     const storedSession = JSON.parse(localStorage.getItem(STORAGE_KEY_NANECISTO));
 
     if (!storedSession || !storedSession.expirationTime) {
-      navigate('/testy'); 
+      navigate('/testy');
       return;
     }
 
     if (Date.now() > storedSession.expirationTime) {
       localStorage.removeItem(STORAGE_KEY_NANECISTO);
-      navigate('/testy'); 
+      navigate('/testy');
       return;
     }
 
@@ -43,7 +44,7 @@ function TestWritingNanecisto() {
       const updatedSession = {
         ...storedSession,
         selectedQuestionIds: shuffledIds,
-        numberOfQuestion: 0, 
+        numberOfQuestion: 0,
         selectedAnswers: {},
       };
       localStorage.setItem(STORAGE_KEY_NANECISTO, JSON.stringify(updatedSession));
@@ -201,10 +202,19 @@ function TestWritingNanecisto() {
           </div>
 
           <div className="flex justify-between items-center my-4">
-            <h2 className='text-2xl inter font-semibold'>{currentQuestion.question}</h2>
-            <Lightbulb color='black' size={32} />
+            <h2 className='text-2xl inter font-semibold relative'>{currentQuestion.question}</h2>
+            <Lightbulb color='black' size={32} onClick={() => setShowHints(!showHints)}  className='cursor-pointer'/>
           </div>
-
+          {showHints && currentQuestion.hints.length > 0 && (
+            <div className="inter">
+              <h3>Nápovědy:</h3>
+              <ul>
+                {currentQuestion.hints.map((hint, index) => (
+                  <li key={index}>{hint}</li>
+                ))}
+              </ul>
+            </div>
+          )}
           {/* Display Answers */}
           <div className="answers-container my-4">
             {currentQuestion.answers.map((answer) => (
