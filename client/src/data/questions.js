@@ -109,8 +109,8 @@ export const allQuestions = [
     question: "What is the hardest natural substance on Earth?",
     answer_type : "boolean",
     answers: [
-      {  answer: "True", status: "correct" },
-      {  answer: "False", status: "wrong" },
+      {  answer: "Ano", status: "correct" },
+      {  answer: "Ne", status: "wrong" },
     ],
     hints: [
       "It is often used in jewelry.",

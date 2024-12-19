@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import TestTimer from './TestTimer';
 import { allQuestions } from '../data/questions';
-import { Info, Lightbulb, Sparkle } from '@phosphor-icons/react';
+import { ArrowCircleLeft, ArrowCircleRight, Info, Lightbulb, Sparkle } from '@phosphor-icons/react';
 import TestResults from './TestResults';
 
 const STORAGE_KEY_NANECISTO = 'NANECISTO';
@@ -122,17 +122,17 @@ function TestWritingNanecisto() {
   const calculateResults = () => {
     const correct = [];
     const wrong = [];
-  
+
     selectedQuestionIds.forEach((qId) => {
       const question = allQuestions.find(q => q.id === qId);
       if (!question) return;
-  
+
       const userAnswer = selectedAnswers[qId];
-  
+
       if (question.answer_type === 'abcd' || question.answer_type === 'boolean') {
         const correctAnswerObj = question.answers.find(a => a.status === 'correct');
         const correctAnswer = correctAnswerObj ? correctAnswerObj.answer : null;
-  
+
         if (userAnswer === correctAnswerObj?.letter || userAnswer === correctAnswer) {
           correct.push({
             question: question.question,
@@ -149,7 +149,7 @@ function TestWritingNanecisto() {
       } else if (question.answer_type === 'free_input') {
         const correctAnswerList = question.answers.map(a => a.toLowerCase().trim());
         const userAnswerNormalized = userAnswer?.toLowerCase().trim();
-  
+
         if (correctAnswerList.includes(userAnswerNormalized)) {
           correct.push({
             question: question.question,
@@ -165,7 +165,7 @@ function TestWritingNanecisto() {
         }
       }
     });
-  
+
     return { correct, wrong };
   };
 
@@ -340,7 +340,7 @@ function TestWritingNanecisto() {
             <div className="flex gap-x-4 my-4">
               {/* "Zpět" (Back) Button */}
               <button
-                className='p-2 w-1/2 bg-[#F1EAFF] rounded-xl px-4'
+                className='p-2 w-1/2 bg-[#F1EAFF] rounded-xl font-medium px-4 flex gap-x-4 items-center justify-start'
                 onClick={() => {
                   if (numberOfQuestion > 0) {
                     setNumberOfQuestion(numberOfQuestion - 1);
@@ -352,12 +352,13 @@ function TestWritingNanecisto() {
                   opacity: numberOfQuestion === 0 ? 0.5 : 1,
                 }}
               >
+                <ArrowCircleLeft size={24}/>
                 Zpět
               </button>
 
               {/* "Další" (Next) Button */}
               <button
-                className='p-2 w-1/2 bg-[#F1EAFF] rounded-xl px-4'
+                className='p-2 w-1/2 bg-[#F1EAFF] rounded-xl font-medium px-4 flex gap-x-4 items-center justify-end'
                 onClick={() => {
                   if (numberOfQuestion < selectedQuestionIds.length - 1) {
                     setNumberOfQuestion(numberOfQuestion + 1);
@@ -369,7 +370,7 @@ function TestWritingNanecisto() {
                   opacity: isLastQuestion ? 0.5 : 1,
                 }}
               >
-                Další
+                Další úloha <ArrowCircleRight size={24} />
               </button>
             </div>
 
@@ -378,10 +379,7 @@ function TestWritingNanecisto() {
               <button
                 onClick={handleSubmitQuiz}
                 disabled={!selectedQuestionIds.every(qId => selectedAnswers[qId])}
-                className={`px-4 py-2 rounded ${!selectedQuestionIds.every(qId => selectedAnswers[qId])
-                  ? 'bg-gray-300 text-gray-700 cursor-not-allowed'
-                  : 'bg-green-500 text-white hover:bg-green-600'
-                  }`}
+                className={`bg-[#F1EAFF] rounded-xl px-4 w-full py-4`}
               >
                 Odevzdat
               </button>
