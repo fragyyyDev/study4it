@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import TestTimer from './TestTimer';
 import { allQuestions } from '../data/questions';
-import { ArrowCircleLeft, ArrowCircleRight, Info, Lightbulb, Sparkle } from '@phosphor-icons/react';
+import { ArrowCircleLeft, ArrowCircleRight, CursorText, Info, Lightbulb, Sparkle } from '@phosphor-icons/react';
 import TestResults from './TestResults';
 
 const STORAGE_KEY_NANECISTO = 'NANECISTO';
@@ -254,7 +254,7 @@ function TestWritingNanecisto() {
           </div>
 
           {/* Footer: Answers and Navigation Buttons */}
-          <div className="flex flex-col">
+          <div className="flex flex-col w-full">
             {/* Display Answers */}
             <div className="answers-container my-4 grid grid-cols-2 gap-4">
               {currentQuestion.answer_type === "abcd" && (
@@ -319,19 +319,21 @@ function TestWritingNanecisto() {
               )}
 
               {currentQuestion.answer_type === "free_input" && (
-                <div className="p-4">
-                  <label htmlFor={`question-${currentQuestion.id}-free-input`} className="block font-medium mb-2">
-                    Your Answer:
-                  </label>
-                  <input
-                    type="text"
-                    id={`question-${currentQuestion.id}-free-input`}
-                    name={`question-${currentQuestion.id}`}
-                    value={selectedAnswers[currentQuestion.id] || ""}
-                    onChange={(e) => handleAnswerSelect(currentQuestion.id, e.target.value)}
-                    className="w-full p-2 border rounded focus:outline-none focus:ring-2 focus:ring-[#7263FF]"
-                  />
-                </div>
+                <div className="w-full bg-[#F1EAFF] rounded-lg relative">
+                <CursorText 
+                  size={24} 
+                  className="absolute top-1/2 left-2 transform -translate-y-1/2 pointer-events-none" 
+                />
+                <input
+                  type="text"
+                  id={`question-${currentQuestion.id}-free-input`}
+                  name={`question-${currentQuestion.id}`}
+                  value={selectedAnswers[currentQuestion.id] || ""}
+                  onChange={(e) => handleAnswerSelect(currentQuestion.id, e.target.value)}
+                  placeholder="Zde napiš svou odpověď"
+                  className="w-full bg-[#F1EAFF] placeholder-black p-2 pl-10 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#7263FF]"
+                />
+              </div>              
               )}
 
             </div>
