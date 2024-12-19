@@ -122,39 +122,51 @@ function TestWritingNanecisto() {
   const calculateResults = () => {
     const correct = [];
     const wrong = [];
-
+  
     selectedQuestionIds.forEach((qId) => {
       const question = allQuestions.find(q => q.id === qId);
       if (!question) return;
-
-      const userAnswerLetter = selectedAnswers[qId];
-      const userAnswer = question.answers.find(a => a.letter === userAnswerLetter);
-
-      if (userAnswer) {
-        if (userAnswer.status === 'correct') {
+  
+      const userAnswer = selectedAnswers[qId];
+  
+      if (question.answer_type === 'abcd' || question.answer_type === 'boolean') {
+        const correctAnswerObj = question.answers.find(a => a.status === 'correct');
+        const correctAnswer = correctAnswerObj ? correctAnswerObj.answer : null;
+  
+        if (userAnswer === correctAnswerObj?.letter || userAnswer === correctAnswer) {
           correct.push({
             question: question.question,
-            selectedAnswer: userAnswer.answer,
-            correctAnswer: getCorrectAnswer(question.answers),
+            selectedAnswer: correctAnswer,
+            correctAnswer,
           });
         } else {
           wrong.push({
             question: question.question,
-            selectedAnswer: userAnswer.answer,
-            correctAnswer: getCorrectAnswer(question.answers),
+            selectedAnswer: question.answers.find(a => a.letter === userAnswer)?.answer || userAnswer,
+            correctAnswer,
+          });
+        }
+      } else if (question.answer_type === 'free_input') {
+        const correctAnswerList = question.answers.map(a => a.toLowerCase().trim());
+        const userAnswerNormalized = userAnswer?.toLowerCase().trim();
+  
+        if (correctAnswerList.includes(userAnswerNormalized)) {
+          correct.push({
+            question: question.question,
+            selectedAnswer: userAnswer,
+            correctAnswer: question.answers.join(', '),
+          });
+        } else {
+          wrong.push({
+            question: question.question,
+            selectedAnswer: userAnswer,
+            correctAnswer: question.answers.join(', '),
           });
         }
       }
     });
-
+  
     return { correct, wrong };
-  };
-
-
-  //vraci jen spravne hodnoty
-  const getCorrectAnswer = (answers) => {
-    const correct = answers.find(a => a.status === 'correct');
-    return correct ? correct.answer : 'Nezodpověděl jsi správně nic 😥❌';
   };
 
   //funkce do resultu aby se to smazalo vsechno a poslalo te to back
@@ -226,7 +238,7 @@ function TestWritingNanecisto() {
           {/* Main Content: Question and Hints */}
           <div className="flex flex-col flex-grow">
             <div className="flex flex-col justify-center my-4">
-              <p  className='inter font-medium'>Vyber odpověď na následující otázku</p>
+              <p className='inter font-medium'>Vyber odpověď na následující otázku</p>
               <h2 className='text-2xl inter font-semibold'>{currentQuestion.question}</h2>
             </div>
             {showHints && currentQuestion.hints.length > 0 && (
@@ -245,37 +257,83 @@ function TestWritingNanecisto() {
           <div className="flex flex-col">
             {/* Display Answers */}
             <div className="answers-container my-4 grid grid-cols-2 gap-4">
-              {currentQuestion.answers.map((answer) => {
-                const isSelected = selectedAnswers[currentQuestion.id] === answer.letter;
-                return (
-                  <label
-                    key={answer.letter}
-                    htmlFor={`question-${currentQuestion.id}-answer-${answer.letter}`}
-                    className={`p-4 border rounded cursor-pointer flex items-center 
-                    transition-colors duration-300
-                    ${isSelected ? 'bg-[#7263FF] text-white' : 'bg-[#F1EAFF]'}
-                  `}
-                  >
-                    <input
-                      type="radio"
-                      id={`question-${currentQuestion.id}-answer-${answer.letter}`}
-                      name={`question-${currentQuestion.id}`}
-                      value={answer.letter}
-                      checked={isSelected}
-                      onChange={() => handleAnswerSelect(currentQuestion.id, answer.letter)}
-                      className="mr-2 accent-[#7263FF]"
-                    />
-                    <div className="flex gap-x-4 items-center">
-                      <span className="inter font-bold text-lg">
-                        {`${answer.letter.toUpperCase()}.`}
-                      </span>
-                      <span className="inter font-medium">
-                        {answer.answer}
-                      </span>
-                    </div>
+              {currentQuestion.answer_type === "abcd" && (
+                currentQuestion.answers.map((answer) => {
+                  const isSelected = selectedAnswers[currentQuestion.id] === answer.letter;
+                  return (
+                    <label
+                      key={answer.letter}
+                      htmlFor={`question-${currentQuestion.id}-answer-${answer.letter}`}
+                      className={`p-4 border rounded cursor-pointer flex items-center 
+          transition-colors duration-300
+          ${isSelected ? "bg-[#7263FF] text-white" : "bg-[#F1EAFF]"}
+        `}
+                    >
+                      <input
+                        type="radio"
+                        id={`question-${currentQuestion.id}-answer-${answer.letter}`}
+                        name={`question-${currentQuestion.id}`}
+                        value={answer.letter}
+                        checked={isSelected}
+                        onChange={() => handleAnswerSelect(currentQuestion.id, answer.letter)}
+                        className="mr-2 accent-[#7263FF]"
+                      />
+                      <div className="flex gap-x-4 items-center">
+                        <span className="inter font-bold text-lg">
+                          {`${answer.letter.toUpperCase()}.`}
+                        </span>
+                        <span className="inter font-medium">{answer.answer}</span>
+                      </div>
+                    </label>
+                  );
+                })
+              )}
+
+              {currentQuestion.answer_type === "boolean" && (
+                currentQuestion.answers.map((answer, index) => {
+                  const isSelected = selectedAnswers[currentQuestion.id] === answer.answer;
+                  return (
+                    <label
+                      key={index}
+                      htmlFor={`question-${currentQuestion.id}-answer-${answer.answer}`}
+                      className={`p-4 border rounded cursor-pointer flex items-center 
+          transition-colors duration-300
+          ${isSelected ? "bg-[#7263FF] text-white" : "bg-[#F1EAFF]"}
+        `}
+                    >
+                      <input
+                        type="radio"
+                        id={`question-${currentQuestion.id}-answer-${answer.answer}`}
+                        name={`question-${currentQuestion.id}`}
+                        value={answer.answer}
+                        checked={isSelected}
+                        onChange={() => handleAnswerSelect(currentQuestion.id, answer.answer)}
+                        className="mr-2 accent-[#7263FF]"
+                      />
+                      <div className="flex items-center">
+                        <span className="inter font-medium">{answer.answer}</span>
+                      </div>
+                    </label>
+                  );
+                })
+              )}
+
+              {currentQuestion.answer_type === "free_input" && (
+                <div className="p-4">
+                  <label htmlFor={`question-${currentQuestion.id}-free-input`} className="block font-medium mb-2">
+                    Your Answer:
                   </label>
-                );
-              })}
+                  <input
+                    type="text"
+                    id={`question-${currentQuestion.id}-free-input`}
+                    name={`question-${currentQuestion.id}`}
+                    value={selectedAnswers[currentQuestion.id] || ""}
+                    onChange={(e) => handleAnswerSelect(currentQuestion.id, e.target.value)}
+                    className="w-full p-2 border rounded focus:outline-none focus:ring-2 focus:ring-[#7263FF]"
+                  />
+                </div>
+              )}
+
             </div>
 
             {/* Navigation Buttons */}
