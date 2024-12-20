@@ -257,7 +257,7 @@ function TestWritingNanecisto() {
     <div className="">
 
       {!resultsActive && stage.name !== 'Pauza' ? (
-        // Kdyz neni pauza
+        // When it's not pause and results are not active
         <div className="w-full flex flex-col justify-between">
           <div>
             <h2 className='text-2xl inter font-bold'>Probíhá test</h2>
@@ -272,8 +272,8 @@ function TestWritingNanecisto() {
             showTimer={true}
           />
         </div>
-      ) : (
-        // Kdyz je pauza
+      ) : !resultsActive && stage.name === 'Pauza' ? (
+        // When it's pause and results are not active
         <div className="w-full flex flex-col justify-between">
           <div>
             <h2 className='text-2xl inter font-bold'>Probíhá test</h2>
@@ -287,8 +287,7 @@ function TestWritingNanecisto() {
             showPath={true}
             showTimer={false}
           />
-          <div className="w-full h-[1px] bg-[#F1EAFF] my-6">
-          </div>
+          <div className="w-full h-[1px] bg-[#F1EAFF] my-6"></div>
           <PauzaScreen
             expirationTime={expirationTime}
             onExpire={handleExpire}
@@ -296,9 +295,9 @@ function TestWritingNanecisto() {
             isPauseStage={stage.name === 'Pauza'}
             onSkipPause={handleSkipPause}
           />
-
         </div>
-      )}
+      ) : null}
+
 
 
       {!resultsActive ? (
