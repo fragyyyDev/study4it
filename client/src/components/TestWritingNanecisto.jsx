@@ -10,7 +10,7 @@ const STORAGE_KEY_NANECISTO = 'NANECISTO';
 const NUMBER_OF_QUESTIONS = 10; //Kolik otazek bude
 
 const STAGES = [
-  { name: 'Matematika', durationMinutes: 0.2 },
+  { name: 'Matematika', durationMinutes: 70},
   { name: 'Pauza', durationMinutes: 15 },
   { name: 'Český Jazyk', durationMinutes: 60 }
 ];
