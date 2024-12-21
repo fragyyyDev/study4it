@@ -1,52 +1,62 @@
-import { X } from '@phosphor-icons/react';
+import { X, Info, Sparkle, XCircle } from '@phosphor-icons/react';
 import { CheckCircle } from '@phosphor-icons/react/dist/ssr';
-import React from 'react';
+import React, { useState } from 'react';
+import TestResultsProgressBar from './TestResultsProgressBar';
+import ResultInfoMessage from './ResultInfoMessage';
 
 function TestResults({ correctAnswers, wrongAnswers, deleteSession }) {
     return (
-        <div className="max-w-3xl mx-auto">
-            <h2 className="text-2xl font-semibold inter">Výsledek tvého testu</h2>
+        <div className="">
+            <h2 className="text-2xl font-semibold inter">Test ukončen</h2>
+            <p className=" inter">
+                Přijímací zkoušky / Simulace Nanečisto
+            </p>
             <div className="w-full h-[1px] bg-[#F1EAFF] my-6"></div>
-            <div className="progress-container my-4 mt-12">
-                <div className="flex w-full justify-between">
-                    <p className='inter font-medium'>
-                         {correctAnswers.lenght} Správně z {correctAnswers.lenght + wrongAnswers.lenght}
-                    </p>
-                    <div className="flex items-center gap-x-4">
-                        <p className='flex inter text-gray-500 items-center gap-x-2 font-medium text-sm'>
-                            <Info color='black' size={16} onClick={() => setShowHints(!showHints)} className='cursor-pointer' />
-                            Potřebuji nápovědu
-                        </p>
-                        <p className='flex inter text-[#7263FF] items-center gap-x-2 font-medium text-sm'>
-                            <Sparkle color='#7263FF' size={16} />
-                            Vysvětlit pomocí AI
-                        </p>
-                    </div>
+            <div className="w-full">
+                <ResultInfoMessage
+                    correctAnswers={correctAnswers}
+                    wrongAnswers={wrongAnswers}
+                />
+                <TestResultsProgressBar correctAnswers={correctAnswers} wrongAnswers={wrongAnswers} />
+            </div>
+
+
+            <div className="section my-6 mt-12">
+                <h3 className="text-2xl font-semibold mb-3 flex items-center gap-x-5 inter">
+                    <CheckCircle color='#2DCA57' size={32} />Správné odpovědi
+                </h3>
+                <div className="">
+                    {correctAnswers.length > 0 ? (
+                        correctAnswers.map((item, index) => (
+                            <div key={index} className="mb-2 p-4 bg-[#F8F6FF] rounded-xl flex justify-between">
+                                <div className="w-2/5">
+                                    <p className='inter font-semibold'>Otázka:</p>
+                                    <p className='text-gray-500 inter'>{item.question}</p>
+                                </div>
+                                <div className="flex w-1/3 justify-between items-center">
+                                    <div className="">
+                                        <p className='inter font-semibold'>Odpověď:</p>
+                                        <p className='text-gray-500 inter'> {item.selectedAnswer}</p>
+                                    </div>
+                                    <div className=" flex text-color-500 items-center gap-x-2">
+                                        <Info color='#6b7280' size={24} />
+                                        <p className='inter text-gray-500 hidden md:block'>Proč?</p>
+                                    </div>
+                                </div>
+
+                            </div>
+                        ))
+                    ) : (
+                        <p>Žádné správné odpovědi ❌😥.</p>
+                    )}
                 </div>
 
-                <div className="w-full bg-[#F1EAFF] rounded-full h-2.5">
-                    <div
-                        className="bg-[#7263FF] h-2.5 rounded-full transition-all duration-500 ease-in-out"
-                        style={{ width: `${((correctAnswers.lenght + 1) / (correctAnswers.lenght + wrongAnswers.lenght)) * 100}%` }}
-                    ></div>
-                </div>
-            </div>
-            <div className="section mb-6">
-                <h3 className="text-2xl font-semibold mb-3 flex items-center gap-x-5 inter">Správné odpovědi <CheckCircle color='#2DCA57' size={32} /></h3>
-                {correctAnswers.length > 0 ? (
-                    correctAnswers.map((item, index) => (
-                        <div key={index} className="mb-2 p-4 bg-[#F1EAFF] rounded-xl">
-                            <p><strong>Otázka:</strong> {item.question}</p>
-                            <p><strong>Odpověď:</strong> {item.selectedAnswer}</p>
-                        </div>
-                    ))
-                ) : (
-                    <p>Žádné správné odpovědi ❌😥.</p>
-                )}
             </div>
 
             <div className="section">
-                <h3 className="text-2xl font-semibold mb-3 inter flex gap-x-5">Špatné odpovědi <X color='#FB435B' size={32} /></h3>
+                <h3 className="text-2xl font-semibold mb-3 inter flex gap-x-5">
+                    Špatné odpovědi <X color='#FB435B' size={32} />
+                </h3>
                 {wrongAnswers.length > 0 ? (
                     wrongAnswers.map((item, index) => (
                         <div key={index} className="mb-2 p-4 bg-[#F1EAFF] rounded-xl">
